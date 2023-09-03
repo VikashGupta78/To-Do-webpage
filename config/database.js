@@ -1,7 +1,7 @@
 
 const mongoose = require('mongoose');
 
-require("dotenv").config();
+require('dotenv').config();
 
 // Replace 'your_mongodb_url' with your actual MongoDB connection string
 const dbConnect = () => {
