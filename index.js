@@ -17,6 +17,6 @@ app.listen(PORT, () => {
 const dbConnect = require("./config/database");
 dbConnect();
 
-app.get("./", (req, res) => {
+app.get("/", (req, res) => {
     res.send(`<h1>This is Homepage baby.</h1>`);
 })

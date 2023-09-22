@@ -9,6 +9,7 @@ const dbConnect = () => {
     mongoose.connect(process.env.DATABASE_URL, {
         useNewUrlParser: true,
         useUnifiedTopology: true,
+        family: 4, // Force IPv4
     })
     .then(() => console.log('Connected to MongoDB!'))
     .catch((error) => {
