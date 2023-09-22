@@ -1,15 +1,15 @@
 const todo = require("../models/ToDo");
 
-exports.createTodo = async(req, res) => {
+exports.getTodo = async(req, res) => {
     try{
-        const {title, description} = req.body;
-        const response = await todo.create({title, description});
+        const todos = await todo.find({});
 
-        res.status(200).json(
+        res.status(200)
+        .json(
             {
                 success: true,
-                data: response,
-                message: 'Entry created successfully'
+                data: todos,
+                message: 'Entire todo data is fetched'
             }
         );
     }
@@ -20,7 +20,43 @@ exports.createTodo = async(req, res) => {
         .json(
             {
                 success: false,
-                data: 'Internal server error',
+                data: 'server error',
+                message: err.message
+            }
+        )
+    }
+}
+
+exports.getTodoById = async(req, res) => {
+    try{
+        const id = req.params.id;
+        const singleTodo = await todo.findById({_id: id});
+
+        if(!singleTodo){
+            return res.status(404)
+            .json({
+                sucess: false,
+                message: "No data present with given id"
+            })
+        }
+
+        res.status(200)
+        .json(
+            {
+                success: true,
+                data: singleTodo,
+                message: 'data with ${id} is sucessfully fetched. '
+            }
+        );
+    }
+    catch(err){
+        console.error(err);
+        console.log(err);
+        res.status(500)
+        .json(
+            {
+                success: false,
+                data: 'server error',
                 message: err.message
             }
         )
